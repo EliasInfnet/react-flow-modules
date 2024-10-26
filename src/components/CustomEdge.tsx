@@ -8,10 +8,13 @@ import {
   getBezierPath,
   useReactFlow,
 } from "@xyflow/react"
-import React from "react"
+import React, { useContext } from "react"
+import ReactFlowContext from "../context/ReactFlowContext"
 
 function CustomEdge(props: EdgeProps) {
   const { setEdges } = useReactFlow()
+
+  const { modules } = useContext(ReactFlowContext)
 
   const {
     id,
@@ -36,7 +39,7 @@ function CustomEdge(props: EdgeProps) {
 
   return (
     <>
-      <BezierEdge {...props} />
+      <BezierEdge {...props}/>
       <EdgeLabelRenderer>
         <Box
           style={{

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
-import { Button, Group, Paper, Stack, Text } from "@mantine/core"
+import { Button, Group, Paper } from "@mantine/core"
 import {
   addEdge,
   Background,
@@ -10,14 +10,13 @@ import {
   useEdgesState,
   useNodesState,
 } from "@xyflow/react"
+import { Icon123 } from "@tabler/icons-react"
 import { initialEdges } from "./data/initial-edges"
 import CustomEdge from "./components/CustomEdge"
 import StageNode from "./components/StageNode"
-import { initialModules } from "./data/initial-modules"
 import ModuleNode from "./components/ModuleNode"
 import { createReactFlowFromModules } from "./utils/node-functions"
 import { Module } from "./types/module"
-import { Icon123 } from "@tabler/icons-react"
 import { ReactFlowProvider } from "./context/ReactFlowContext"
 
 const nodeTypes = {
@@ -50,11 +49,8 @@ function App() {
 
   return (
     <Group h={"100vh"} gap={0}>
-      <Paper h={"100%"} w={"80vw"}>
-        <ReactFlowProvider
-          modules={modules}
-          setModules={setModules}
-        >
+      <Paper h={"70%"} w={"80vw"}>
+        <ReactFlowProvider modules={modules} setModules={setModules}>
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -65,8 +61,19 @@ function App() {
             edgeTypes={edgeTypes}
             draggable={false}
             fitView
+            fitViewOptions={{
+              duration: 500,
+              padding: 1,
+              includeHiddenNodes: true,
+
+            }}
+            minZoom={1}
+            zoomOnDoubleClick={false}
           >
-            <Background variant={BackgroundVariant.Dots} />
+            <Background
+              variant={BackgroundVariant.Dots}
+              bgColor="var(--mantine-color-gray-0)"
+            />
           </ReactFlow>
         </ReactFlowProvider>
       </Paper>

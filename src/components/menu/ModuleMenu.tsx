@@ -4,6 +4,7 @@ import {
   IconArrowLeftCircle,
   IconArrowRightCircle,
   IconCube3dSphere,
+  IconPaperclip,
   IconSettings,
   IconTrash,
 } from "@tabler/icons-react"
@@ -14,17 +15,23 @@ import { faker } from "@faker-js/faker"
 
 interface ModuleMenuProps {
   createModule: (module: Omit<Module, "idmodulo" | "nodeid">) => Module
+  deleteModule: (moduleId: number) => void
   module: Module
   children: React.ReactNode
 }
 
-function ModuleMenu({ module, createModule, children }: ModuleMenuProps) {
-  const { setEdges } = useReactFlow()
+function ModuleMenu({
+  module,
+  createModule,
+  deleteModule,
+  children,
+}: ModuleMenuProps) {
+  const { setEdges, fitView } = useReactFlow()
 
   const createModuleNextStage = () => {
     const newModule = createModule({
       moduloestagio: module.moduloestagio + 1,
-      moduloicon: IconCube3dSphere,
+      moduloicon: IconPaperclip,
       modulonome: faker.database.column(),
       modulotipo: "ANNEX",
     })
@@ -35,10 +42,12 @@ function ModuleMenu({ module, createModule, children }: ModuleMenuProps) {
         id: `${module.nodeid}-${newModule.nodeid}`,
         source: module.nodeid,
         target: newModule.nodeid,
-        type:"custom-edge",
-        animated:true
+        type: "custom-edge",
+        animated: true,
       },
     ])
+
+    fitView({ duration: 500, padding: 1, includeHiddenNodes: true })
   }
 
   return (
@@ -46,8 +55,9 @@ function ModuleMenu({ module, createModule, children }: ModuleMenuProps) {
       shadow="md"
       position="right"
       withArrow
-      key="module-menu"
-      id="module-menu"
+      key={`module-menu-${module?.idmodulo}`}
+      id={`module-menu-${module?.idmodulo}`}
+      closeOnClickOutside
     >
       <Menu.Target>{children}</Menu.Target>
 
@@ -90,6 +100,7 @@ function ModuleMenu({ module, createModule, children }: ModuleMenuProps) {
           leftSection={
             <IconTrash style={{ width: rem(20), height: rem(20) }} />
           }
+          onClick={() => deleteModule(module.idmodulo)}
         >
           Delete module
         </Menu.Item>

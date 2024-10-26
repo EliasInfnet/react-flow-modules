@@ -11,6 +11,7 @@ interface ReactFlowProviderProps {
 
 export type ReactFlowContextType = {
   createModule: (module: Omit<Module, "idmodulo" | "nodeid">) => Module
+  deleteModule: (moduleId: number) => void
   modules: Module[]
 }
 
@@ -37,8 +38,12 @@ export function ReactFlowProvider({
     return newModule
   }
 
+  const deleteModule = (moduleId: number): void => {
+    setModules((prev) => prev.filter((m) => m.idmodulo !== moduleId))
+  }
+
   return (
-    <ReactFlowContext.Provider value={{ createModule, modules }}>
+    <ReactFlowContext.Provider value={{ createModule, deleteModule, modules }}>
       {children}
     </ReactFlowContext.Provider>
   )

@@ -3,12 +3,17 @@ import {
   Box,
   Button,
   Divider,
+  Group,
+  Indicator,
   Paper,
   Stack,
   Text,
 } from "@mantine/core"
 import {
   Icon123,
+  IconArrowBigRightLine,
+  IconArrowBigRightLines,
+  IconArrowRightCircle,
   IconCrane,
   IconCube3dSphere,
   IconPencil,
@@ -17,7 +22,12 @@ import {
 } from "@tabler/icons-react"
 import { Handle, Node, NodeProps, Position, useReactFlow } from "@xyflow/react"
 import React, { useContext, useMemo } from "react"
-import { NODE_GAP, NODE_SIZE, STAGE_WIDTH } from "../constants/node"
+import {
+  NODE_GAP,
+  NODE_HEIGHT,
+  NODE_WIDTH,
+  STAGE_WIDTH,
+} from "../constants/node"
 import ReactFlowContext, {
   ReactFlowContextType,
 } from "../context/ReactFlowContext"
@@ -35,7 +45,6 @@ function StageNode(props: NodeProps) {
       modulonome: faker.person.lastName(),
       modulotipo: "EMAIL",
     })
-    fitView({ padding: 1, duration: 500, includeHiddenNodes: true })
   }
 
   const stageName = useMemo(() => faker.company.buzzNoun(), [])
@@ -48,21 +57,35 @@ function StageNode(props: NodeProps) {
         justify="space-between"
         h={"100%"}
       >
-        <Paper shadow="sm">
-          <Button
-            leftSection={<IconPencil size={15} strokeWidth={1.5} />}
-            variant="white"
-            color="dark"
-            autoContrast
+        <Group>
+          <Paper shadow="sm">
+            <Button
+              leftSection={<IconPencil size={15} />}
+              variant="white"
+              color="dark"
+              autoContrast
+            >
+              <Text size="xs" maw={150}>
+                Estágio {stageName}
+              </Text>
+            </Button>
+          </Paper>
+          <Indicator
+            color="white"
+            label={<IconPlus color="black" size={8} strokeWidth={4} />}
+            size={15}
           >
-            <Text size="xs" maw={150}>
-              Estágio {stageName}
-            </Text>
-          </Button>
-        </Paper>
+            <Paper shadow="sm">
+              <ActionIcon size={"lg"} variant="white" color="dark">
+                <IconArrowBigRightLine size={15} />
+              </ActionIcon>
+            </Paper>
+          </Indicator>
+        </Group>
         <ActionIcon
           mb={-NODE_GAP - 10}
-          size={NODE_SIZE}
+          w={NODE_WIDTH}
+          h={NODE_HEIGHT}
           variant="outline"
           bd={"1px dashed"}
           onClick={addModuleToStage}

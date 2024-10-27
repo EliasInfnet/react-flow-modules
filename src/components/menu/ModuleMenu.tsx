@@ -47,7 +47,6 @@ function ModuleMenu({
       },
     ])
 
-    fitView({ duration: 500, padding: 1, includeHiddenNodes: true })
   }
 
   return (

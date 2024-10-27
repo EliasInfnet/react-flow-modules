@@ -1,5 +1,13 @@
 import { useCallback, useEffect, useState } from "react"
-import { Button, Group, Paper } from "@mantine/core"
+import {
+  Avatar,
+  Button,
+  Divider,
+  Group,
+  Paper,
+  Stack,
+  Text,
+} from "@mantine/core"
 import {
   addEdge,
   Background,
@@ -10,7 +18,7 @@ import {
   useEdgesState,
   useNodesState,
 } from "@xyflow/react"
-import { Icon123 } from "@tabler/icons-react"
+import { Icon123, IconCube3dSphere, IconPaperclip } from "@tabler/icons-react"
 import { initialEdges } from "./data/initial-edges"
 import CustomEdge from "./components/CustomEdge"
 import StageNode from "./components/StageNode"
@@ -43,13 +51,14 @@ function App() {
       animated: true,
       id: `${connection.source}-${connection.target}`,
       type: "custom-edge",
+      style: { stroke: "var(--mantine-color-green-6)", strokeWidth: 2 },
     }
     setEdges((prevEdges) => addEdge(edge, prevEdges))
   }, [])
 
   return (
-    <Group h={"100vh"} gap={0}>
-      <Paper h={"70%"} w={"80vw"}>
+    <Stack h={"100vh"}>
+      <Paper h={"70%"} w={"100vw"}>
         <ReactFlowProvider modules={modules} setModules={setModules}>
           <ReactFlow
             nodes={nodes}
@@ -65,9 +74,7 @@ function App() {
               duration: 500,
               padding: 1,
               includeHiddenNodes: true,
-
             }}
-            minZoom={1}
             zoomOnDoubleClick={false}
           >
             <Background
@@ -77,7 +84,7 @@ function App() {
           </ReactFlow>
         </ReactFlowProvider>
       </Paper>
-      <Paper h={"100%"}>
+      <Group gap={"lg"}>
         <Button
           onClick={() =>
             setModules((prev) => [
@@ -95,8 +102,8 @@ function App() {
         >
           Create
         </Button>
-      </Paper>
-    </Group>
+      </Group>
+    </Stack>
   )
 }
 

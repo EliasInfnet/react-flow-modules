@@ -1,7 +1,8 @@
 import { Node } from "@xyflow/react"
 import {
   NODE_GAP,
-  NODE_SIZE,
+  NODE_HEIGHT,
+  NODE_WIDTH,
   STAGE_GAP,
   STAGE_PADDING_Y,
   STAGE_WIDTH,
@@ -13,7 +14,7 @@ export const createStage = (stageNumber: number, numberOfModules: number) => {
     id: `stage-${stageNumber}`,
     width: STAGE_WIDTH,
     height:
-      STAGE_PADDING_Y * 2 + (numberOfModules + 1) * (NODE_SIZE + NODE_GAP),
+      STAGE_PADDING_Y * 2 + (numberOfModules + 1) * (NODE_HEIGHT + NODE_GAP),
     position: {
       y: 0,
       x: stageNumber * (STAGE_WIDTH + STAGE_GAP),
@@ -31,11 +32,11 @@ const createNode = (stageNumber: number, index: number, id: string) => {
   const newNode: Node = {
     id,
     data: {},
-    width: NODE_SIZE,
-    height: NODE_SIZE,
+    width: NODE_WIDTH,
+    height: NODE_HEIGHT,
     position: {
-      x: STAGE_WIDTH / 2 - NODE_SIZE / 2,
-      y: STAGE_PADDING_Y + index * (NODE_GAP + NODE_SIZE),
+      x: STAGE_WIDTH / 2 - NODE_WIDTH / 2,
+      y: STAGE_PADDING_Y + index * (NODE_GAP + NODE_HEIGHT),
     },
     extent: "parent",
     parentId: `stage-${stageNumber}`,

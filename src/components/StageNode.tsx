@@ -8,6 +8,7 @@ import {
   Paper,
   Stack,
   Text,
+  Tooltip,
 } from "@mantine/core"
 import {
   Icon123,
@@ -70,24 +71,26 @@ function StageNode(props: NodeProps) {
               </Text>
             </Button>
           </Paper>
-          <Indicator
-            color="white"
-            label={<IconPlus color="black" size={8} strokeWidth={4} />}
-            size={15}
-          >
-            <Paper shadow="sm">
-              <ActionIcon size={"lg"} variant="white" color="dark">
-                <IconArrowBigRightLine size={15} />
-              </ActionIcon>
-            </Paper>
-          </Indicator>
+          <Tooltip label={"Criar novo estágio"}>
+            <Indicator
+              color="white"
+              label={<IconPlus color="black" size={8} strokeWidth={4} />}
+              size={15}
+            >
+              <Paper shadow="sm">
+                <ActionIcon size={"lg"} variant="white" color="dark">
+                  <IconArrowBigRightLine size={15} />
+                </ActionIcon>
+              </Paper>
+            </Indicator>
+          </Tooltip>
         </Group>
         <ActionIcon
           mb={-NODE_GAP - 10}
           w={NODE_WIDTH}
           h={NODE_HEIGHT}
           variant="outline"
-          bd={"1px dashed"}
+          bd={"1px var(--mantine-color-yellow-6) dashed"}
           onClick={addModuleToStage}
         >
           <IconPlus />

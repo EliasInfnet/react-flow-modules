@@ -15,7 +15,7 @@ import { faker } from "@faker-js/faker"
 
 interface ModuleMenuProps {
   createModule: (module: Omit<Module, "idmodulo" | "nodeid">) => Module
-  deleteModule: (moduleId: number) => void
+  deleteModule: (nodeId: string) => void
   module: Module
   children: React.ReactNode
 }
@@ -46,7 +46,6 @@ function ModuleMenu({
         animated: true,
       },
     ])
-
   }
 
   return (
@@ -99,7 +98,7 @@ function ModuleMenu({
           leftSection={
             <IconTrash style={{ width: rem(20), height: rem(20) }} />
           }
-          onClick={() => deleteModule(module.idmodulo)}
+          onClick={() => deleteModule(module.nodeid)}
         >
           Delete module
         </Menu.Item>
